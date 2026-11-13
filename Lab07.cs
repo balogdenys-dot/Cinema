@@ -56,8 +56,17 @@ internal class Program
     }
     static void ShowAbout()
     {
-        Console.WriteLine("");
-        Console.WriteLine("");
+        Console.WriteLine("Тема: Кінотеатр");
+        Console.WriteLine("Головна сутність: Сеанс");
+        Console.WriteLine("Перелік полів та їх типи даних:");
+        Console.WriteLine("  - int код сеансу");
+        Console.WriteLine("  - string назва фільму");
+        Console.WriteLine("  - int код — зал, з довідника");
+        Console.WriteLine("  - DateTime дата й час");
+        Console.WriteLine("  - double ціна квитка");
+        Console.WriteLine("  - int продано місць");
+        Console.WriteLine("  - int усього місць");
+        Console.WriteLine("  - Підсумкова величина: заповненість залів у відсотках і касовий збір за день");
     }
 }
 }
