@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+
 namespace Program;
 
 internal class Program
@@ -25,10 +26,8 @@ internal class Program
                     Pause();
                     break;
                 case "2":
-                    // ShowCostTable(); ← ваш метод із табулюванням
-
+                    ShowCostTable();
                     Console.WriteLine("Поки не зроблено.");
-
                     Pause();
                     break;
                 case "3":
@@ -68,5 +67,17 @@ internal class Program
         Console.WriteLine("  - int усього місць");
         Console.WriteLine("  - Підсумкова величина: заповненість залів у відсотках і касовий збір за день");
     }
-}
+    static void ShowCostTable()
+    {
+        Console.WriteLine("--- Табуляція вартості (не менше 8 рядків, дробовий крок) ---");
+        double basePrice = 120.5;
+            
+        Console.WriteLine($"{"Кількість (од.)"} | {"Вартість (грн)"}");
+
+        for (double x = 0.5; x <= 4.0; x += 0.5)
+        {
+            double y = x * basePrice;
+            Console.WriteLine($"{x,-18:F1} | {y,-15:F2}");
+        }
+    }
 }
