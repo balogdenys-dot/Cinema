@@ -30,7 +30,7 @@ internal class Program
                     Pause();
                     break;
                 case "3":
-                    // ShowWorkloadTable(); ← ваш метод із таблицею на два входи
+                    ShowWorkloadTable();
                     Pause();
                     break;
                 case "0":
@@ -75,14 +75,61 @@ internal class Program
         for (double x = 0.5; x <= 4.0; x += 0.5)
         {
             double y = x * basePrice;
-            Console.WriteLine($"{x,:F1} | {y,:F2}");
+            Console.WriteLine($"{x:F1} | {y:F2}");
         }
     }
     static void ShowWorkloadTable()
     {
-        Console.WriteLine("Таблиця завантаження залів з двома входами та підсумками");
-        Console.Write("Введіть кількість залів: ");
-        int rows = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Таблиця завантаження залів з двома входами та підсумками\n");
 
+        Console.Write("Введіть кількість залів: ");
+        if (!int.TryParse(Console.ReadLine(), out int rows) || rows <= 0)
+        {
+            Console.WriteLine("Некоректне значення");
+            return;
+        }
+
+        Console.Write("Введіть кількість днів показу фільмів: ");
+        if (!int.TryParse(Console.ReadLine(), out int cols) || cols <= 0)
+        {
+            Console.WriteLine("Некоректне значення");
+            return;
+        }
+
+        int Total = 0;
+        int[] colTotals = new int[cols];
+
+
+        Console.Write("Зал / День\t");
+        for (int j = 1; j <= cols; j++)
+        {
+            Console.Write($"День {j}\t");
+        }
+        Console.WriteLine("Підсумок");
+
+        for (int i = 1; i <= rows; i++)
+        {
+            Console.Write($"Зал {i}\t\t");
+            int rowSum = 0;
+            for (int j = 1; j <= cols; j++)
+            {
+                int ticketsSold = (i * 6 + j * 11) % 70 + 10;
+                Console.Write($"{ticketsSold}\t");
+                rowSum += ticketsSold;
+                colTotals[j - 1] += ticketsSold;
+            }
+
+            Console.WriteLine($"{rowSum}");
+            Total += rowSum;
+        }
+
+
+        Console.Write("Підсумок\t");
+        for (int j = 0; j < cols; j++)
+        {
+            Console.Write($"{colTotals[j]}\t");
+        }
+        Console.WriteLine($"{Total}");
     }
 }
+
