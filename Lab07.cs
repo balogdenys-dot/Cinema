@@ -13,8 +13,8 @@ internal class Program
         {
             Console.WriteLine("=== Сервісний центр ===");
             Console.WriteLine("1 — про програму");
-            Console.WriteLine("2 — таблиця вартості ремонту");
-            Console.WriteLine("3 — завантаження майстрів за тиждень");
+            Console.WriteLine("2 — таблиця вартості квитків");
+            Console.WriteLine("3 — продаж квитків за тиждень");
             Console.WriteLine("0 — вихід");
             Console.Write("Ваш вибір: ");
             string choice = Console.ReadLine();
@@ -27,12 +27,10 @@ internal class Program
                     break;
                 case "2":
                     ShowCostTable();
-                    Console.WriteLine("Поки не зроблено.");
                     Pause();
                     break;
                 case "3":
                     // ShowWorkloadTable(); ← ваш метод із таблицею на два входи
-                    Console.WriteLine("Поки не зроблено.");
                     Pause();
                     break;
                 case "0":
@@ -71,13 +69,20 @@ internal class Program
     {
         Console.WriteLine("--- Табуляція вартості (не менше 8 рядків, дробовий крок) ---");
         double basePrice = 120.5;
-            
-        Console.WriteLine($"{"Кількість (од.)"} | {"Вартість (грн)"}");
+
+        Console.WriteLine($"{"Кількість"} | {"Вартість (грн)"}");
 
         for (double x = 0.5; x <= 4.0; x += 0.5)
         {
             double y = x * basePrice;
-            Console.WriteLine($"{x,-18:F1} | {y,-15:F2}");
+            Console.WriteLine($"{x,:F1} | {y,:F2}");
         }
+    }
+    static void ShowWorkloadTable()
+    {
+        Console.WriteLine("Таблиця завантаження залів з двома входами та підсумками");
+        Console.Write("Введіть кількість залів: ");
+        int rows = Convert.ToInt32(Console.ReadLine());
+
     }
 }
