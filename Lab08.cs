@@ -76,18 +76,18 @@ internal class Program
     {
         Console.WriteLine("Таблиця завантаження залів з двома входами та підсумками\n");
 
-        Console.Write("Введіть кількість залів: ");
-        if (!int.TryParse(Console.ReadLine(), out int rows) || rows <= 0)
-        {
-            Console.WriteLine("Некоректне значення");
-            return;
+        int rows = ReadInt("Введіть кількість залів: ");
+        if (rows <= 0) 
+        { 
+            Console.WriteLine("Некоректне значення"); 
+            return; 
         }
 
-        Console.Write("Введіть кількість днів показу фільмів: ");
-        if (!int.TryParse(Console.ReadLine(), out int cols) || cols <= 0)
-        {
-            Console.WriteLine("Некоректне значення");
-            return;
+        int cols = ReadInt("Введіть кількість днів показу фільмів: ");
+        if (cols <= 0) 
+        { 
+            Console.WriteLine("Некоректне значення"); 
+            return; 
         }
 
         int Total = 0;
@@ -141,6 +141,19 @@ internal class Program
                 return value;
             }
             Console.WriteLine("Помилка, введіть число.");
+        }
+    }
+    static int ReadInt(string prompt)
+    {
+        int value;
+        while (true)
+        {
+            Console.Write(prompt);
+            if (int.TryParse(Console.ReadLine(), out value))
+            {
+                return value;
+            }
+            Console.WriteLine("Помилка! Введіть ціле число.");
         }
     }
 }
