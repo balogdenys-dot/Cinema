@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Program;
+namespace CinemaApp;
 
 internal class Program
 {
@@ -25,9 +25,9 @@ internal class Program
                 case "2": ShowCostTable(); Pause(); break;
                 case "3": ShowWorkloadTable(); Pause(); break;
                 case "0": running = false; Console.WriteLine("До побачення."); break;
-                default: 
-                    Console.WriteLine("Немає такого пункту. Спробуйте ще раз."); 
-                    Pause(); 
+                default:
+                    Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
+                    Pause();
                     break;
 
             }
@@ -58,11 +58,11 @@ internal class Program
         Console.WriteLine("--- Табуляція вартості (не менше 8 рядків, дробовий крок) ---");
 
         Console.WriteLine("Введіть початкову кількість квитків: ");
-        double start = Convert.ToDouble(Console.ReadLine("Введіть початкову кількість квитків: "));
+        double start = Convert.ToDouble(Console.ReadLine());
         Console.WriteLine("Введіть кінцеву кількість квитків: ");
-        double end = Convert.ToDouble(Console.ReadLine("Введіть кінцеву кількість квитків: "));
+        double end = Convert.ToDouble(Console.ReadLine());
         Console.WriteLine("Введіть крок табуляції: ");
-        double step = Convert.ToDouble(Console.ReadLine("Введіть крок табуляції: "));
+        double step = Convert.ToDouble(Console.ReadLine());
 
 
         double basePrice = 120.5;
