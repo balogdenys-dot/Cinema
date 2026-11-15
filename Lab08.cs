@@ -56,11 +56,20 @@ internal class Program
     static void ShowCostTable()
     {
         Console.WriteLine("--- Табуляція вартості (не менше 8 рядків, дробовий крок) ---");
+
+        Console.WriteLine("Введіть початкову кількість квитків: ");
+        double start = Convert.ToDouble(Console.ReadLine("Введіть початкову кількість квитків: "));
+        Console.WriteLine("Введіть кінцеву кількість квитків: ");
+        double end = Convert.ToDouble(Console.ReadLine("Введіть кінцеву кількість квитків: "));
+        Console.WriteLine("Введіть крок табуляції: ");
+        double step = Convert.ToDouble(Console.ReadLine("Введіть крок табуляції: "));
+
+
         double basePrice = 120.5;
 
         Console.WriteLine($"{"Кількість"} | {"Вартість (грн)"}");
 
-        for (double x = 0.5; x <= 4.0; x += 0.5)
+        for (double x = start; x <= end; x += step)
         {
             double y = x * basePrice;
             Console.WriteLine($"{x:F1} | {y:F2}");
@@ -120,9 +129,9 @@ internal class Program
         Console.WriteLine($"{Total}");
     }
 
-    static double CalculateCost(double hours, double rate, double parts)
+    static double CalculateRevenue(double price, int soldSeats)
     {
-        return hours * rate + parts;
+        return price * soldSeats;
     }
 }
 
