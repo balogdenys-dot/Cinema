@@ -57,12 +57,9 @@ internal class Program
     {
         Console.WriteLine("--- Табуляція вартості (не менше 8 рядків, дробовий крок) ---");
 
-        Console.WriteLine("Введіть початкову кількість квитків: ");
-        double start = Convert.ToDouble(Console.ReadLine());
-        Console.WriteLine("Введіть кінцеву кількість квитків: ");
-        double end = Convert.ToDouble(Console.ReadLine());
-        Console.WriteLine("Введіть крок табуляції: ");
-        double step = Convert.ToDouble(Console.ReadLine());
+        double start = ReadDouble("Введіть початкову кількість квитків: ");
+        double end = ReadDouble("Введіть кінцеву кількість квитків: ");
+        double step = ReadDouble("Введіть крок табуляції: ");
 
 
         double basePrice = 120.5;
@@ -72,7 +69,7 @@ internal class Program
         for (double x = start; x <= end; x += step)
         {
             double y = x * basePrice;
-            Console.WriteLine($"{x:F1} | {y:F2}");
+            Console.WriteLine($"{x} | {y}");
         }
     }
     static void ShowWorkloadTable()
@@ -132,6 +129,19 @@ internal class Program
     static double CalculateRevenue(double price, int soldSeats)
     {
         return price * soldSeats;
+    }
+    static double ReadDouble(string prompt)
+    {
+        double value = 0;
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            if (double.TryParse(Console.ReadLine(), out value))
+            {
+                return value;
+            }
+            Console.WriteLine("Помилка, введіть число.");
+        }
     }
 }
 
