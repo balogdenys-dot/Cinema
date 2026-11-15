@@ -21,25 +21,13 @@ internal class Program
             Console.WriteLine();
             switch (choice)
             {
-                case "1":
-                    ShowAbout();
-                    Pause();
-                    break;
-                case "2":
-                    ShowCostTable();
-                    Pause();
-                    break;
-                case "3":
-                    ShowWorkloadTable();
-                    Pause();
-                    break;
-                case "0":
-                    running = false;
-                    Console.WriteLine("До побачення.");
-                    break;
-                default:
-                    Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
-                    Pause();
+                case "1": ShowAbout(); Pause(); break;
+                case "2": ShowCostTable(); Pause(); break;
+                case "3": ShowWorkloadTable(); Pause(); break;
+                case "0": running = false; Console.WriteLine("До побачення."); break;
+                default: 
+                    Console.WriteLine("Немає такого пункту. Спробуйте ще раз."); 
+                    Pause(); 
                     break;
 
             }
@@ -130,6 +118,11 @@ internal class Program
             Console.Write($"{colTotals[j]}\t");
         }
         Console.WriteLine($"{Total}");
+    }
+
+    static double CalculateCost(double hours, double rate, double parts)
+    {
+        return hours * rate + parts;
     }
 }
 
