@@ -245,6 +245,15 @@ internal class Program
 
         return true;
     }
+    static void ChangeInt(int number)
+    {
+        number = 999;
+    }
+
+    static void ChangeValue(double[] values, int index, double newValue)
+    {
+        values[index] = newValue;
+    }
 }
        
 
