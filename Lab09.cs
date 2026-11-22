@@ -20,6 +20,7 @@ internal class Program
             Console.WriteLine("3 — продаж квитків за тиждень");
             Console.WriteLine("4 — додати значення");
             Console.WriteLine("5 — видалити за номером");
+            Console.WriteLine("6 — показати статистику");
             Console.WriteLine("0 — вихід");
             Console.Write("Ваш вибір: ");
             string choice = Console.ReadLine();
@@ -31,6 +32,7 @@ internal class Program
                 case "3": ShowWorkloadTable(); Pause(); break;
                 case "4": AddValues(values, ref count); Pause(); break;
                 case "5": RemoveNumber(values, ref count); Pause(); break;
+                case "6": ShowStatistics(values, count); Pause(); break;
                 case "0": running = false; Console.WriteLine("До побачення."); break;
                 default:
                     Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
@@ -289,5 +291,38 @@ internal class Program
     static void ChangeValue(double[] values, int index, double newValue)
     {
         values[index] = newValue;
+    }
+
+    static void ShowStatistics(double[] values, int count)
+    {
+        PrintTable(values, count);
+
+        if (count <= 0)
+        {
+            Console.WriteLine("Статистика недоступна: набір значень порожній.");
+            return;
+        }
+
+        double sum = 0;
+        double minValue = values[0];
+        for (int i = 0; i < count; i++)
+        {
+            sum += values[i];
+            if (values[i] < minValue)
+            {
+                minValue = values[i];
+            }
+        }
+
+        double avg = sum / count;
+        Console.WriteLine($"Кількість елементів: {count}");
+        Console.WriteLine($"Сума: {sum}");
+        Console.WriteLine($"Середнє: {avg}");
+        Console.WriteLine($"Найменше значення: {minValue}");
+
+        if (FindMax(values, count, out double maxVal, out int maxNum))
+        {
+            Console.WriteLine($"Найбільше значення: {maxVal} (номер {maxNum})");
+        }
     }
 }
