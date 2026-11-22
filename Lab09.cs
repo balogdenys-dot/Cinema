@@ -221,6 +221,30 @@ internal class Program
             Console.WriteLine($"No {i + 1} | {values[i]}");
         }
     }
+
+    static bool FindMax(double[] values, int count, out double maxValue, out int maxNumber)
+    {
+        if (values == null || count <= 0)
+        {
+            maxValue = 0;
+            maxNumber = -1;
+            return false;
+        }
+
+        maxValue = values[0];
+        maxNumber = 1;
+
+        for (int i = 1; i < count; i++)
+        {
+            if (values[i] > maxValue)
+            {
+                maxValue = values[i];
+                maxNumber = i + 1;
+            }
+        }
+
+        return true;
+    }
 }
        
 
