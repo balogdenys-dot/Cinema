@@ -185,6 +185,7 @@ internal class Program
         int beforeCount = count;
         AddValue(values, ref count, input);
         Console.WriteLine($"Лічильник змінився: з {beforeCount} значень => {count} значення");
+        PrintTable(values, count);
     }
 
     static void AddValue(double[] values, ref int count, double[] newValues)
@@ -205,5 +206,22 @@ internal class Program
             count++;
         }
     }
+    static void PrintTable(double[] values, int count)
+    {
+        Console.WriteLine("--- Таблиця значень ---");
+
+        if (count <= 0)
+        {
+            Console.WriteLine("     | (порожньо)");
+            return;
+        }
+
+        for (int i = 0; i < count; i++)
+        {
+            Console.WriteLine($"No {i + 1} | {values[i]}");
+        }
+    }
 }
+       
+
 
