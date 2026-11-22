@@ -19,6 +19,7 @@ internal class Program
             Console.WriteLine("2 — таблиця вартості квитків");
             Console.WriteLine("3 — продаж квитків за тиждень");
             Console.WriteLine("4 — додати значення");
+            Console.WriteLine("5 — видалити за номером");
             Console.WriteLine("0 — вихід");
             Console.Write("Ваш вибір: ");
             string choice = Console.ReadLine();
@@ -29,6 +30,7 @@ internal class Program
                 case "2": ShowCostTable(); Pause(); break;
                 case "3": ShowWorkloadTable(); Pause(); break;
                 case "4": AddValues(values, ref count); Pause(); break;
+                case "5": RemoveNumber(values, ref count); Pause(); break;
                 case "0": running = false; Console.WriteLine("До побачення."); break;
                 default:
                     Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
@@ -206,6 +208,40 @@ internal class Program
             count++;
         }
     }
+
+    static void RemoveNumber(double[] values, ref int count)
+    {
+        if (count == 0)
+        {
+            Console.WriteLine("Масив порожній.");
+            return;
+        }
+
+        PrintTable(values, count);
+        int number = ReadInt($"Введіть номер елемента для видалення (1-{count}): ");
+        RemoveAt(values, ref count, number - 1);
+        PrintTable(values, count);
+    }
+
+    static void RemoveAt(double[] values, ref int count, int index)
+    {
+        if (values == null || index < 0 || index >= count)
+        {
+            Console.WriteLine("Неправильний номер елемента.");
+            return;
+        }
+
+        for (int i = index; i < count - 1; i++)
+        {
+            values[i] = values[i + 1];
+        }
+
+        values[count - 1] = 0;
+        count--;
+        Console.WriteLine("Елемент видалено.");
+    }
+
+
     static void PrintTable(double[] values, int count)
     {
         Console.WriteLine("--- Таблиця значень ---");
@@ -255,6 +291,3 @@ internal class Program
         values[index] = newValue;
     }
 }
-       
-
-
