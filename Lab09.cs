@@ -8,13 +8,17 @@ internal class Program
     static void Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
+        double[] values = new double[100];
+        int count = 0;
         bool running = true;
+
         while (running)
         {
             Console.WriteLine("=== Сервісний центр ===");
             Console.WriteLine("1 — про програму");
             Console.WriteLine("2 — таблиця вартості квитків");
             Console.WriteLine("3 — продаж квитків за тиждень");
+            Console.WriteLine("4 — додати значення");
             Console.WriteLine("0 — вихід");
             Console.Write("Ваш вибір: ");
             string choice = Console.ReadLine();
@@ -24,6 +28,7 @@ internal class Program
                 case "1": ShowAbout(); Pause(); break;
                 case "2": ShowCostTable(); Pause(); break;
                 case "3": ShowWorkloadTable(); Pause(); break;
+                case "4": AddValues(values, ref count); Pause(); break;
                 case "0": running = false; Console.WriteLine("До побачення."); break;
                 default:
                     Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
@@ -154,6 +159,50 @@ internal class Program
                 return value;
             }
             Console.WriteLine("Помилка! Введіть ціле число.");
+        }
+    }
+    static void AddValues(double[] values, ref int count)
+    {
+        int addAmount = ReadInt("Скільки значень додати? ");
+        if (addAmount < 0)
+        {
+            Console.WriteLine("Кількість не може бути від'ємною.");
+            return;
+        }
+
+        if (count + addAmount > values.Length)
+        {
+            Console.WriteLine($"Недостатньо місця в масиві. Вільно: {values.Length - count} значення");
+            return;
+        }
+
+        double[] input = new double[addAmount];
+        for (int i = 0; i < addAmount; i++)
+        {
+            input[i] = ReadDouble($"Введіть значення {count + i + 1}: ");
+        }
+
+        int beforeCount = count;
+        AddValue(values, ref count, input);
+        Console.WriteLine($"Лічильник змінився: з {beforeCount} значень => {count} значення");
+    }
+
+    static void AddValue(double[] values, ref int count, double[] newValues)
+    {
+        if (values == null || newValues == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < newValues.Length; i++)
+        {
+            if (count >= values.Length)
+            {
+                break;
+            }
+
+            values[count] = newValues[i];
+            count++;
         }
     }
 }
