@@ -35,6 +35,7 @@ internal class Program
             Console.WriteLine("4 — додати значення");
             Console.WriteLine("5 — видалити за номером");
             Console.WriteLine("6 — показати статистику");
+            Console.WriteLine("7 — додати сеанс");
             Console.WriteLine("0 — вихід");
             Console.Write("Ваш вибір: ");
             string choice = Console.ReadLine();
@@ -47,6 +48,7 @@ internal class Program
                 case "4": AddValues(values, ref count); Pause(); break;
                 case "5": RemoveNumber(values, ref count); Pause(); break;
                 case "6": ShowStatistics(values, count); Pause(); break;
+                case "7": AddSession(); Pause(); break;
                 case "0": running = false; Console.WriteLine("До побачення."); break;
                 default:
                     Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
@@ -338,5 +340,91 @@ internal class Program
         {
             Console.WriteLine($"Найбільше значення: {maxVal} (номер {maxNum})");
         }
+    }
+
+    static void AddSession()
+    {
+        string title;
+        int hall;
+        DateTime date;
+        double price;
+        int total;
+        int sold;
+
+        if (count == Capacity)
+        {
+            Console.WriteLine("Сховище заповнене, видаліть щось зайве.");
+            return;
+        }
+
+        title = ReadText("Назва фільму: ");
+
+        while (true)
+        {
+            hall = ReadInt("Код залу (1–10): ");
+            if (hall < 1 || hall > 10)
+            {
+                Console.WriteLine("Невірне значення! Код залу має бути від 1 до 10.");
+                continue;
+            }
+            break;
+        }
+
+        while (true)
+        {
+            Console.WriteLine("Дата й час (дд.мм.рррр гг:хх): ");
+            if (!DateTime.TryParse(Console.ReadLine(), out date))
+            {
+                Console.WriteLine("Невірна дата! Спробуйте ще раз має бути така дата 24.11.2026 18:30");
+                continue;
+            }
+            break;
+        }
+
+        while (true)
+        {
+            price = ReadDouble("Ціна квитка (грн): ");
+            if (price < 1 || price > 10000)
+            {
+                Console.WriteLine("Невірне значення! Ціна має бути від 1 до 10000 грн.");
+                continue;
+            }
+            break;
+        }
+
+        while (true)
+        {
+            total = ReadInt("Усього місць у залі (1–500): ");
+            if (total < 1 || total > 500)
+            {
+                Console.WriteLine("Невірне значення! Кількість місць має бути від 1 до 500.");
+                continue;
+            }
+            break;
+        }
+
+        while (true)
+        {
+            sold = ReadInt($"Продано місць (0–{total}): ");
+            if (sold < 0 || sold > total)
+            {
+                Console.WriteLine($"Невірне значення! Проданих місць має бути від 0 до {total}.");
+                continue;
+            }
+            break;
+        }
+
+        ids[count] = nextId;
+        movieTitles[count] = title;
+        hallIds[count] = hall;
+        sessionDates[count] = date;
+        ticketPrices[count] = price;
+        soldSeats[count] = sold;
+        totalSeats[count] = total;
+
+        count++;
+        nextId++;
+
+        Console.WriteLine($"Додано сеанс №{ids[count - 1]}.");
     }
 }
