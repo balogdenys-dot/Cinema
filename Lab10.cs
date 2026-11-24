@@ -427,4 +427,74 @@ internal class Program
 
         Console.WriteLine($"Додано сеанс №{ids[count - 1]}.");
     }
+    static void AddReadySessions()
+    {
+        if (count + 6 > Capacity)
+        {
+            Console.WriteLine("Недостатньо місця у сховищі.");
+            return;
+        }
+
+        ids[count] = nextId;
+        movieTitles[count] = "Backrooms";
+        hallIds[count] = 1;
+        sessionDates[count] = DateTime.Parse("24.11.2026 14:00");
+        ticketPrices[count] = 150;
+        soldSeats[count] = 85;
+        totalSeats[count] = 100;
+        count++;
+        nextId++;
+
+        ids[count] = nextId;
+        movieTitles[count] = "Інтерстеллар";
+        hallIds[count] = 2;
+        sessionDates[count] = DateTime.Parse("24.11.2026 12:30");
+        ticketPrices[count] = 180;
+        soldSeats[count] = 60;
+        totalSeats[count] = 80;
+        count++;
+        nextId++;
+
+        ids[count] = nextId;
+        movieTitles[count] = "Дуже страшне кіно 3";
+        hallIds[count] = 1;
+        sessionDates[count] = DateTime.Parse("24.11.2026 19:15");
+        ticketPrices[count] = 200;
+        soldSeats[count] = 95;
+        totalSeats[count] = 100;
+        count++;
+        nextId++;
+
+        ids[count] = nextId;
+        movieTitles[count] = "Матриця 2";
+        hallIds[count] = 3;
+        sessionDates[count] = DateTime.Parse("25.11.2026 15:00");
+        ticketPrices[count] = 140;
+        soldSeats[count] = 40;
+        totalSeats[count] = 60;
+        count++;
+        nextId++;
+
+        ids[count] = nextId;
+        movieTitles[count] = "Бігущий по лабіринту";
+        hallIds[count] = 2;
+        sessionDates[count] = DateTime.Parse("25.11.2026 18:00");
+        ticketPrices[count] = 160;
+        soldSeats[count] = 75;
+        totalSeats[count] = 80;
+        count++;
+        nextId++;
+
+        ids[count] = nextId;
+        movieTitles[count] = "Аватар 2";
+        hallIds[count] = 1;
+        sessionDates[count] = DateTime.Parse("25.11.2026 21:00");
+        ticketPrices[count] = 220;
+        soldSeats[count] = 90;
+        totalSeats[count] = 100;
+        count++;
+        nextId++;
+
+        Console.WriteLine("Додано 6 готових сеансів.");
+    }
 }
