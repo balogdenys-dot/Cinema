@@ -73,10 +73,16 @@ internal class Program
     static void ShowWorkloadTable()
     {
         const int maxSeats = 80;
-        const double ticketPrice = 120.0;
         int totalTickets = 0;
 
         Console.WriteLine("Таблиця завантаження залів з двома входами та підсумками");
+
+        double ticketPrice = ReadDouble("Введіть ціну квитка: ");
+        if (ticketPrice <= 0)
+        {
+            Console.WriteLine("Некоректне значення ціни");
+            return;
+        }
 
         int rows = ReadInt("Введіть кількість залів: ");
         if (rows <= 0)
@@ -133,8 +139,10 @@ internal class Program
             {
                 Console.Write($"{soldData[i, j]}\t");
             }
-            Console.WriteLine($"{rowTotals[i]}");
+            double rowRevenue = CalculateRevenue(ticketPrice, rowTotals[i]);
+            Console.WriteLine($"{rowTotals[i]}\t\t{rowRevenue} грн");
         }
+
     }
     static double CalculateRevenue(double price, int soldSeats)
     {
