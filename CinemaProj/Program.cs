@@ -144,4 +144,17 @@ internal class Program
     {
         return price * soldSeats;
     }
+    static double ReadDouble(string prompt)
+    {
+        double value = 0;
+        while (true)
+        {
+            Console.WriteLine(prompt);
+            if (double.TryParse(Console.ReadLine(), out value))
+            {
+                return value;
+            }
+            Console.WriteLine("Помилка, введіть число.");
+        }
+    }
 }
