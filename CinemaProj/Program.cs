@@ -25,15 +25,11 @@ internal class Program
                     Pause();
                     break;
                 case "2":
-                    // ShowCostTable();
-
-                    Console.WriteLine("Поки не зроблено.");
-
+                    ShowCostTable();
                     Pause();
                     break;
                 case "3":
-                    // ShowWorkloadTable();
-                    Console.WriteLine("Поки не зроблено.");
+                    ShowWorkloadTable();
                     Pause();
                     break;
                 case "0":
@@ -67,5 +63,18 @@ internal class Program
         Console.WriteLine("  - int продано місць");
         Console.WriteLine("  - int усього місць");
         Console.WriteLine("  - Підсумкова величина: заповненість залів у відсотках і касовий збір за день");
+    }
+    static void ShowCostTable()
+    {
+        Console.WriteLine("--- Табуляція вартості (не менше 8 рядків, дробовий крок) ---");
+        double basePrice = 120.5;
+
+        Console.WriteLine($"{"Кількість"} | {"Вартість"}");
+
+        for (double x = 0.5; x <= 4.0; x += 0.5)
+        {
+            double y = x * basePrice;
+            Console.WriteLine($"{x} | {y}");
+        }
     }
 }
