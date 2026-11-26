@@ -77,4 +77,71 @@ internal class Program
             Console.WriteLine($"{x} | {y}");
         }
     }
+    static void ShowWorkloadTable()
+    {
+        const int maxSeats = 80;
+        const double ticketPrice = 120.0;
+        int totalTickets = 0;
+
+        Console.WriteLine("Таблиця завантаження залів з двома входами та підсумками");
+
+        Console.Write("Введіть кількість залів: ");
+        if (!int.TryParse(Console.ReadLine(), out int rows) || rows <= 0)
+        {
+            Console.WriteLine("Некоректне значення");
+            return;
+        }
+
+        Console.Write("Введіть кількість днів показу фільмів: ");
+        if (!int.TryParse(Console.ReadLine(), out int cols) || cols <= 0)
+        {
+            Console.WriteLine("Некоректне значення");
+            return;
+        }
+
+
+        Console.WriteLine("\nВведіть кількість проданих квитків, максимум 80 у залі:");
+
+        int[,] soldData = new int[rows, cols];
+        int[] rowTotals = new int[rows];
+
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
+                int ticketsSold;
+                while (true)
+                {
+                    Console.Write($"[Зал {i + 1}, День {j + 1}] квитків (0-{maxSeats}): ");
+                    ticketsSold = Convert.ToInt32(Console.ReadLine());
+                    if (ticketsSold >= 0 && ticketsSold <= maxSeats)
+                    {
+                        break;
+                    }
+                    Console.WriteLine($"Помилка! Введіть число від 0 до {maxSeats}.");
+                }
+                soldData[i, j] = ticketsSold;
+                rowTotals[i] += ticketsSold;
+                totalTickets += ticketsSold;
+            }
+        }
+
+        Console.WriteLine("\n--- Таблиця ---");
+        Console.Write("Зал / День\t");
+        for (int j = 1; j <= cols; j++)
+        {
+            Console.Write($"День {j}\t");
+        }
+        Console.WriteLine("Підсумок");
+        for (int i = 0; i < rows; i++)
+        {
+            Console.Write($"Зал {i + 1}\t\t"); 
+            for (int j = 0; j < cols; j++)
+            {
+                Console.Write($"{soldData[i, j]}\t");
+            }
+            Console.WriteLine($"{rowTotals[i]}");
+        }
+    }
 }
