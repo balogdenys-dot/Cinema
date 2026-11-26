@@ -20,22 +20,10 @@ internal class Program
             Console.WriteLine();
             switch (choice)
             {
-                case "1":
-                    ShowAbout();
-                    Pause();
-                    break;
-                case "2":
-                    ShowCostTable();
-                    Pause();
-                    break;
-                case "3":
-                    ShowWorkloadTable();
-                    Pause();
-                    break;
-                case "0":
-                    running = false;
-                    Console.WriteLine("До побачення.");
-                    break;
+                case "1": ShowAbout(); Pause(); break;
+                case "2": ShowCostTable(); Pause(); break;
+                case "3": ShowWorkloadTable(); Pause(); break;
+                case "0": running = false; Console.WriteLine("До побачення."); break;
                 default:
                     Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
                     Pause();
@@ -143,5 +131,9 @@ internal class Program
             }
             Console.WriteLine($"{rowTotals[i]}");
         }
+    }
+    static double CalculateRevenue(double price, int soldSeats)
+    {
+        return price * soldSeats;
     }
 }
