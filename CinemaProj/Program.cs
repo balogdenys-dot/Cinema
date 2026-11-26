@@ -58,12 +58,9 @@ internal class Program
 
         double basePrice = 120.5;
 
-        Console.WriteLine("Введіть початкову кількість квитків: ");
-        double start = Convert.ToDouble(Console.ReadLine("Введіть початкову кількість квитків: "));
-        Console.WriteLine("Введіть кінцеву кількість квитків: ");
-        double end = Convert.ToDouble(Console.ReadLine("Введіть кінцеву кількість квитків: "));
-        Console.WriteLine("Введіть крок табуляції: ");
-        double step = Convert.ToDouble(Console.ReadLine("Введіть крок табуляції: "));
+        double start = ReadDouble("Введіть початкову кількість квитків: ");
+        double end = ReadDouble("Введіть кінцеву кількість квитків: ");
+        double step = ReadDouble("Введіть крок табуляції: ");
 
         Console.WriteLine($"{"Кількість"} | {"Вартість"}");
 
@@ -81,15 +78,15 @@ internal class Program
 
         Console.WriteLine("Таблиця завантаження залів з двома входами та підсумками");
 
-        Console.Write("Введіть кількість залів: ");
-        if (!int.TryParse(Console.ReadLine(), out int rows) || rows <= 0)
+        int rows = ReadInt("Введіть кількість залів: ");
+        if (rows <= 0)
         {
             Console.WriteLine("Некоректне значення");
             return;
         }
 
-        Console.Write("Введіть кількість днів показу фільмів: ");
-        if (!int.TryParse(Console.ReadLine(), out int cols) || cols <= 0)
+        int cols = ReadInt("Введіть кількість днів показу фільмів: ");
+        if (cols <= 0)
         {
             Console.WriteLine("Некоректне значення");
             return;
@@ -109,8 +106,7 @@ internal class Program
                 int ticketsSold;
                 while (true)
                 {
-                    Console.Write($"[Зал {i + 1}, День {j + 1}] квитків (0-{maxSeats}): ");
-                    ticketsSold = Convert.ToInt32(Console.ReadLine());
+                    ticketsSold = ReadInt($"[Зал {i + 1}, День {j + 1}] квитків (0-{maxSeats}): ");
                     if (ticketsSold >= 0 && ticketsSold <= maxSeats)
                     {
                         break;
