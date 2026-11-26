@@ -157,4 +157,17 @@ internal class Program
             Console.WriteLine("Помилка, введіть число.");
         }
     }
+    static int ReadInt(string prompt)
+    {
+        int value;
+        while (true)
+        {
+            Console.Write(prompt);
+            if (int.TryParse(Console.ReadLine(), out value))
+            {
+                return value;
+            }
+            Console.WriteLine("Помилка! Введіть ціле число.");
+        }
+    }
 }
