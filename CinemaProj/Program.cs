@@ -25,7 +25,7 @@ internal class Program
             {
                 case "1": ShowAbout(); Pause(); break;
                 case "2": ShowCostTable(); Pause(); break;
-                case "3": ShowWorkloadTable(); Pause(); break;
+                case "3": ShowWorkloadTable(values, ref count); Pause(); break;
                 case "0": running = false; Console.WriteLine("До побачення."); break;
                 default:
                     Console.WriteLine("Немає такого пункту. Спробуйте ще раз.");
@@ -57,10 +57,10 @@ internal class Program
     }
     static void ShowCostTable()
     {
-        Console.WriteLine("--- Табуляція вартості (не менше 8 рядків, дробовий крок) ---");
+        Console.WriteLine("---Табуляція вартості---");
 
-        double basePrice = 120.5;
-
+        double basePrice = 120;
+        Console.WriteLine($"Ціна одного квитка: {basePrice}");
         double start = ReadDouble("Введіть початкову кількість квитків: ");
         double end = ReadDouble("Введіть кінцеву кількість квитків: ");
         double step = ReadDouble("Введіть крок табуляції: ");
@@ -73,7 +73,7 @@ internal class Program
             Console.WriteLine($"{x} | {y}");
         }
     }
-    static void ShowWorkloadTable()
+    static void ShowWorkloadTable(double[] values, ref int count)
     {
         const int maxSeats = 80;
         int totalTickets = 0;
@@ -134,6 +134,9 @@ internal class Program
         {
             Console.Write($"День {j}\t");
         }
+
+        double[] revenues = new double[rows];
+
         Console.WriteLine("Підсумок");
         for (int i = 0; i < rows; i++)
         {
@@ -142,11 +145,16 @@ internal class Program
             {
                 Console.Write($"{soldData[i, j]}\t");
             }
-            double rowRevenue = CalculateRevenue(ticketPrice, rowTotals[i]);
-            Console.WriteLine($"{rowTotals[i]}\t\t{rowRevenue} грн");
+            revenues[i] = CalculateRevenue(ticketPrice, rowTotals[i]);
+            Console.WriteLine($"{rowTotals[i]}\t\t{revenues[i]} грн");
+
         }
+        AddValue(values, ref count, revenues);
+        Console.WriteLine($"\nКасові збори залів додано в масив. Значень у масиві: {count}");
 
     }
+
+    
     static double CalculateRevenue(double price, int soldSeats)
     {
         return price * soldSeats;
