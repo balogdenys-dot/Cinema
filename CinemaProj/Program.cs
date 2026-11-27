@@ -7,11 +7,14 @@ internal class Program
     static void Main(string[] args)
     {
         Console.OutputEncoding = Encoding.UTF8;
+        double[] values = new double[100];
+        int count = 0;
+
         bool running = true;
         while (running)
         {
             Console.WriteLine("=== Кінотеатр ===");
-            Console.WriteLine("1 — про програму");
+            Console.WriteLine("1 — Про програму");
             Console.WriteLine("2 — Таблиця вартості квитків");
             Console.WriteLine("3 — Завантаження залів та касовий збір за тиждень");
             Console.WriteLine("0 — вихід");
@@ -172,6 +175,24 @@ internal class Program
                 return value;
             }
             Console.WriteLine("Помилка! Введіть ціле число.");
+        }
+    }
+    static void AddValue(double[] values, ref int count, double[] newValues)
+    {
+        if (values == null || newValues == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < newValues.Length; i++)
+        {
+            if (count >= values.Length)
+            {
+                break;
+            }
+
+            values[count] = newValues[i];
+            count++;
         }
     }
 }
