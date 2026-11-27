@@ -128,33 +128,23 @@ internal class Program
             }
         }
 
-        Console.WriteLine("\n--- Таблиця ---");
-        Console.Write("Зал / День\t");
-        for (int j = 1; j <= cols; j++)
-        {
-            Console.Write($"День {j}\t");
-        }
-
         double[] revenues = new double[rows];
-
-        Console.WriteLine("Підсумок");
         for (int i = 0; i < rows; i++)
         {
-            Console.Write($"Зал {i + 1}\t\t"); 
-            for (int j = 0; j < cols; j++)
-            {
-                Console.Write($"{soldData[i, j]}\t");
-            }
             revenues[i] = CalculateRevenue(ticketPrice, rowTotals[i]);
-            Console.WriteLine($"{rowTotals[i]}\t\t{revenues[i]} грн");
-
         }
+
+        PrintTable(soldData, rowTotals, revenues, rows, cols);
+
         AddValue(values, ref count, revenues);
         Console.WriteLine($"\nКасові збори залів додано в масив. Значень у масиві: {count}");
 
+        Console.WriteLine();
+        ShowStatistics(values, count);
     }
-
     
+
+
     static double CalculateRevenue(double price, int soldSeats)
     {
         return price * soldSeats;
@@ -237,5 +227,128 @@ internal class Program
     static void ChangeValue(double[] values, int index, double newValue)
     {
         values[index] = newValue;
+    }
+    static void PrintTable(double[] values, int count)
+    {
+        Console.WriteLine("--- Таблиця значень ---");
+
+        if (count <= 0)
+        {
+            Console.WriteLine("\t\t(порожньо)");
+            return;
+        }
+
+        Console.WriteLine("Зал\tЗначення");
+        for (int i = 0; i < count; i++)
+        {
+            Console.WriteLine($"№ {i + 1}\t\t\t{values[i]} грн");
+        }
+    }
+
+    static bool FindMax(double[] values, int count, out double maxValue, out int maxNumber)
+    {
+        if (values == null || count <= 0)
+        {
+            maxValue = 0;
+            maxNumber = -1;
+            return false;
+        }
+
+        maxValue = values[0];
+        maxNumber = 1;
+
+        for (int i = 1; i < count; i++)
+        {
+            if (values[i] > maxValue)
+            {
+                maxValue = values[i];
+                maxNumber = i + 1;
+            }
+        }
+
+        return true;
+    }
+
+    static void ShowStatistics(double[] values, int count)
+    {
+        PrintTable(values, count);
+
+        if (count <= 0)
+        {
+            Console.WriteLine("Статистика недоступна: набір значень порожній.");
+            return;
+        }
+
+        double sum = 0;
+        double minValue = values[0];
+        for (int i = 0; i < count; i++)
+        {
+            sum += values[i];
+            if (values[i] < minValue)
+            {
+                minValue = values[i];
+            }
+        }
+
+        double avg = sum / count;
+        Console.WriteLine($"Кількість елементів: {count}");
+        Console.WriteLine($"Сума: {sum}");
+        Console.WriteLine($"Середнє: {avg}");
+        Console.WriteLine($"Найменше значення: {minValue}");
+
+        if (FindMax(values, count, out double maxVal, out int maxNum))
+        {
+            Console.WriteLine($"Найбільше значення: {maxVal} (номер {maxNum})");
+        }
+    }
+
+    static void RemoveNumber(double[] values, ref int count)
+    {
+        if (count == 0)
+        {
+            Console.WriteLine("Масив порожній.");
+            return;
+        }
+
+        int number = ReadInt($"Введіть номер елемента для видалення (1-{count}): ");
+        RemoveAt(values, ref count, number - 1);
+    }
+
+    static void RemoveAt(double[] values, ref int count, int index)
+    {
+        if (values == null || index < 0 || index >= count)
+        {
+            Console.WriteLine("Неправильний номер елемента.");
+            return;
+        }
+
+        for (int i = index; i < count - 1; i++)
+        {
+            values[i] = values[i + 1];
+        }
+
+        values[count - 1] = 0;
+        count--;
+        Console.WriteLine("Елемент видалено.");
+    }
+    static void PrintTable(int[,] soldData, int[] rowTotals, double[] revenues, int rows, int cols)
+    {
+        Console.WriteLine("\n--- Таблиця ---");
+        Console.Write("Зал / День\t");
+        for (int j = 1; j <= cols; j++)
+        {
+            Console.Write($"День {j}\t");
+        }
+        Console.WriteLine("Підсумок");
+
+        for (int i = 0; i < rows; i++)
+        {
+            Console.Write($"Зал {i + 1}\t\t");
+            for (int j = 0; j < cols; j++)
+            {
+                Console.Write($"{soldData[i, j]}\t");
+            }
+            Console.WriteLine($"{rowTotals[i]}\t\t{revenues[i]} грн");
+        }
     }
 }
