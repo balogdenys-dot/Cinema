@@ -195,4 +195,29 @@ internal class Program
             count++;
         }
     }
+    static void AddValues(double[] values, ref int count)
+    {
+        int addAmount = ReadInt("Скільки значень додати? ");
+        if (addAmount < 0)
+        {
+            Console.WriteLine("Кількість не може бути від'ємною.");
+            return;
+        }
+
+        if (count + addAmount > values.Length)
+        {
+            Console.WriteLine($"Недостатньо місця в масиві. Вільно: {values.Length - count} значення");
+            return;
+        }
+
+        double[] input = new double[addAmount];
+        for (int i = 0; i < addAmount; i++)
+        {
+            input[i] = ReadDouble($"Введіть значення {count + i + 1}: ");
+        }
+
+        int beforeCount = count;
+        AddValue(values, ref count, input);
+        Console.WriteLine($"Лічильник змінився: з {beforeCount} значень => {count} значення");
+    }
 }
