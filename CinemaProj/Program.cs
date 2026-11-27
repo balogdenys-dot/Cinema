@@ -228,4 +228,14 @@ internal class Program
         AddValue(values, ref count, input);
         Console.WriteLine($"Лічильник змінився: з {beforeCount} значень => {count} значення");
     }
+
+    static void ChangeInt(int number)
+    {
+        number = 999;
+    }
+
+    static void ChangeValue(double[] values, int index, double newValue)
+    {
+        values[index] = newValue;
+    }
 }
